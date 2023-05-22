@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Добавить запись о техническом обслуживании для {{ asset.asset_name }}</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+  </div>
+
+  <style>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    .card {
+      height: 100%;
+    }
+  </style>
+{% endblock %}

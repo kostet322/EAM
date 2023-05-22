@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <h1>Добро пожаловать!</h1>
+    <p>Это подсистема по управлению физическими активами.</p>
+    <p>Эффективно управляйте активами вашей организации, оптимизируйте операции по техническому обслуживанию и отслеживайте историю ремонтов.</p>
+    <p>Получайте информацию, оптимизируйте использование активов и сокращайте время простоя.</p>
+    <a href="{% url 'asset_list' %}" class="btn btn-primary">Давайте начнем</a>
+  </div>
+  <style>
+    /* Обновленный стиль */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #212121;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+  </style>
+{% endblock %}

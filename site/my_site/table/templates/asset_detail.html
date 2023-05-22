@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ asset.asset_name }}</h1>
+  <p>Serial Number: {{ asset.asset_serial_number }}</p>
+  <p>Description: {{ asset.asset_description }}</p>
+  <p>Location: {{ asset.location }}</p>
+  <p>Date Purchased: {{ asset.date_purchased }}</p>
+  <p>Cost: {{ asset.cost }}</p>
+
+  <h2>Обслуживание</h2>
+  {% url 'maintenance_list' asset_id=asset.id as maintenance_list_url %}
+  <a href="{{ maintenance_list_url }}" class="btn btn-secondary">Добавить обслуживание </a>
+
+  <ul>
+    {% for maintenance in asset.maintenance_set.all %}
+      <li>{{ maintenance.date }}: {{ maintenance.description }}</li>
+    {% empty %}
+      <li>Записей о техническом обслуживании не найдено.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Ремонт</h2>
+  {% url 'repair_list' asset_id=asset.id as repair_list_url %}
+  <a href="{{ repair_list_url }}" class="btn btn-secondary">Добавить ремонт</a>
+
+  <ul>
+    {% for repair in asset.repair_set.all %}
+      <li>{{ repair.date }}: {{ repair.description }}</li>
+    {% empty %}
+      <li>Записей о ремонте не найдено.</li>
+    {% endfor %}
+  </ul>
+
+  <style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    .card {
+      height: 100%;
+    }
+  </style>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Активы{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="text-center">Список активов</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <form action="{% url 'search_result' %}" method="get" class="search-form">
+          <div class="input-group">
+            <input name="q" type="text" placeholder="Поиск по названию" class="form-control">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">Поиск</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      {% for asset in assets %}
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">{{ asset.asset_name }}</h5>
+              <p class="card-text">Серийный номер: {{ asset.asset_serial_number }}</p>
+              <p class="card-text">Описание: {{ asset.asset_description }}</p>
+              <p class="card-text">Место расположения: {{ asset.location }}</p>
+              <p class="card-text">Дата приобретения: {{ asset.date_purchased }}</p>
+              <p class="card-text">Стоимость: {{ asset.cost }}</p>
+              <a href="{% url 'asset_detail' asset_id=asset.id %}" class="btn btn-primary">Добавить обслуживание/ремонт</a><br>
+              <div style="display: inline;">
+                <a href="{% url 'edit_asset' asset_id=asset.id %}" class="btn btn-success">Изменить</a>
+                <form method="post" action="{% url 'asset_delete' asset_id=asset.id %}" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" onclick="return confirm('Вы действительно хотите удалить данный актив?')" class="btn btn-danger">Удалить</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-md-12">
+          <p>Активы не найдены.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    /* Обновленный стиль */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .search-form {
+      margin-bottom: 20px;
+    }
+
+    .card {
+      height: 100%;
+    }
+  </style>
+{% endblock %}

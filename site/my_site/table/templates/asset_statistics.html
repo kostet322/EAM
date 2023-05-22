@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Статистика активов</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Количество активов</h2>
+        <p>Общее количество активов: {{ total_assets }}</p>
+        <h2>Средняя стоимость активов</h2>
+        <p>Средняя стоимость активов: {{ avg_cost }} руб.</p>
+      </div>
+      <div class="col-md-6">
+        <h2>Общая стоимость активов</h2>
+        <p>Общая стоимость активов: {{ total_cost }} руб.</p>
+        <canvas id="assetChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var assetData = {
+        labels: ['Общая стоимость активов'],
+        datasets: [{
+          label: 'Общая стоимость активов',
+          data: [{{ total_cost }}],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      };
+
+      var assetChart = new Chart(document.getElementById('assetChart'), {
+        type: 'bar',
+        data: assetData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+{% endblock %}
